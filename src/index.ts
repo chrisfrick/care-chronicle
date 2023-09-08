@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 app.get('/api/ping', (_req, res) => {
   console.log('incoming ping');
@@ -16,6 +16,8 @@ app.get('/api/ping', (_req, res) => {
 app.use('/api/diagnoses', diagnosesRouter);
 
 app.use('/api/patients', patientRouter);
+
+app.use(express.static('client/build'))
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
