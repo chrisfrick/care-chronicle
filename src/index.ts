@@ -17,7 +17,7 @@ app.use('/api/diagnoses', diagnosesRouter);
 
 app.use('/api/patients', patientRouter);
 
-app.use(express.static('client/build'))
+app.use(express.static('client/build'));
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
