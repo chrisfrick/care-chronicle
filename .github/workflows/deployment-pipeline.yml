@@ -6,55 +6,32 @@ on:
       - main
 
 jobs:
-  frontend_build:
-    name: Frontend lint and build
+  deployment_pipeline:
     runs-on: ubuntu-20.04
-    defaults:
-      run:
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Frontent - install dependencies
+        run: npm install
         working-directory: ./client
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - name: Install dependencies
-        run: npm install
-      - name: lint
+      - name: Frontent - lint
         run: npm run lint
-      - name: build
+        working-directory: ./client
+      - name: Frontent - build
         run: npm run build
-
-  backend_build:
-    name: Backend lint and build
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - name: Install dependencies
+        working-directory: ./client
+      - name: Backend - install dependencies
         run: npm install
-      - name: lint
+      - name: Backend - lint
         run: npm run lint
-      - name: build typescript
+      - name: Backend - build typescript
         run: npm run tsc
-
-  deploy:
-    name: Deploy app
-    needs: [frontend_build, backend_build]
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v3
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: ls
       - name: deploy app
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip') }}
         run: flyctl deploy --remote-only
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-      
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
