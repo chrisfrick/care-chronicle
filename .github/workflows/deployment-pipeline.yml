@@ -13,20 +13,20 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - name: Frontent - install dependencies
+      - name: frontend - install dependencies
         run: npm install
         working-directory: ./client
-      - name: Frontent - lint
+      - name: frontend - lint
         run: npm run lint
         working-directory: ./client
-      - name: Frontent - build
+      - name: frontend - build
         run: npm run build
         working-directory: ./client
-      - name: Backend - install dependencies
+      - name: server - install dependencies
         run: npm install
-      - name: Backend - lint
+      - name: server - lint
         run: npm run lint
-      - name: Backend - build typescript
+      - name: server - build typescript
         run: npm run tsc
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - name: deploy app
