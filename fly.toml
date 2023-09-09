@@ -6,18 +6,13 @@
 app = "care-chronicle"
 primary_region = "iad"
 
-[deploy]
-  release_command = "npm run tsc"
-
 [build]
-  [build.args]
-    NODE_VERSION = "18.13.0"
 
 [env]
   PORT = "3000"
 
 [processes]
-  app = "node build/src/index.js"
+  app = "node build/src/index.js" 
 
 [http_service]
   internal_port = 3000
