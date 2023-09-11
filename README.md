@@ -1,5 +1,8 @@
 # Care Chronicle
 
+![heatch-check](https://img.shields.io/github/actions/workflow/status/chrisfrick/care-chronicle/health-check.yml?label=health%20check
+)
+
 ### Patient health record administration tool
 [View Live Demo](https://care-chronicle.fly.dev/)
 
